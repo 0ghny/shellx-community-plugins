@@ -5,12 +5,8 @@ fi
 
 if [[ ! -d "${ASDF_DIR}" ]]; then
   # Feature: Install if not present
-  if [[ -n "${ASDF_INSTALL_IF_NOT_PRESENT}" ]]; then
-    git clone https://github.com/asdf-vm/asdf.git "${ASDF_DIR:-"${HOME}"/.asdf}" --branch v0.10.2
-  else
-    # Feature disabled, don't do nothing, asdf is not installed
-    return
-  fi
+  git clone --quiet https://github.com/asdf-vm/asdf.git "${ASDF_DIR:-"${HOME}"/.asdf}" --branch v0.10.2 > /dev/null 2>&1 || \
+  echo "shellx-community-plugins/asdf: error cloning asdf, skipping initialisation"
 fi
 
 # Init asdf
